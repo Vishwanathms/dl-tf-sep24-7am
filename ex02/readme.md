@@ -69,4 +69,8 @@ resource "aws_subnet" "subnet" {
 count = length(var.subnets)
 ```
 
+* Provide the values in the cli 
+```
+terraform plan -var vpc_cidr="10.30.0.0/16"
+```
   
