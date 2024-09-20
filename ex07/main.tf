@@ -9,9 +9,15 @@ module "vm01" {
   subnet_id = "subnet-0d6ac36c57a9960b6"
 
   depends_on = [ aws_s3_bucket.bucket1 ]
+  
 }
 
 resource "aws_s3_bucket" "bucket1" {
     bucket = "vishwa20240920"
-  
+  tags = {
+    "Name" = "s31-${var.env}"
+  }
+  lifecycle {
+    ignore_changes = [ tags.Name ]
+  }
 }
