@@ -7,4 +7,11 @@ module "vm01" {
   instance_type = "t2.micro"
   #subnet_id = module.network-1.subnet_ids["sub1"]
   subnet_id = "subnet-0d6ac36c57a9960b6"
+
+  depends_on = [ aws_s3_bucket.bucket1 ]
+}
+
+resource "aws_s3_bucket" "bucket1" {
+    bucket = "vishwa20240920"
+  
 }
