@@ -16,3 +16,7 @@ count = "${var.a + var.b == 10 ? 2 : 1}"
 ## Fetching values from the existing resource on aws 
 
 * use "data resource"
+
+
+## Provisioners -- Local
+

@@ -21,3 +21,12 @@ module "vm01" {
   subnet_id = data.aws_subnet.subnet1.id
 
 }
+
+resource "null_resource" "fetch_pip" {
+    provisioner "local-exec" {
+    command = "echo publicip of ec2: ${module.vm01[0].public_ip} > ${path.root}/ec2meta.txt"
+#    environment = {
+#      publicip = aws_instance.ec2.public_ip
+#    }
+  }
+}

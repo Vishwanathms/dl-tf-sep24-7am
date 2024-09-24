@@ -8,8 +8,13 @@ resource "aws_instance" "ec2" {
   tags = {
     "Name" = "VM01"
   }
+
 }
 
 variable "ami_id" {}
 variable "instance_type" {}
 variable "subnet_id" {}
+
+output "public_ip" {
+  value = aws_instance.ec2.public_ip
+}
