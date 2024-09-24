@@ -23,10 +23,13 @@ module "vm01" {
 }
 
 resource "null_resource" "fetch_pip" {
+    #triggers = {
+    #    always_run = "${timestamp()}"
+    #}
     provisioner "local-exec" {
-    command = "echo publicip of ec2: ${module.vm01[0].public_ip} > ${path.root}/ec2meta.txt"
-#    environment = {
-#      publicip = aws_instance.ec2.public_ip
-#    }
+    command = "echo publicip of ec2: ${module.vm01[0].public_ip} : $publicip  > ${path.root}/ec2meta.txt"
+    environment = {
+      publicip = module.vm01[0].public_ip
+    }
   }
 }
