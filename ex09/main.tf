@@ -40,6 +40,27 @@ resource "null_resource" "install_nginx" {
         "sudo systemctl enable nginx",
         "curl localhost"
        ]
-  }
+    }
   depends_on = [ module.vm01 ]
+}
+
+resource "null_resource" "file_copy" {
+    connection {
+      type = "ssh"
+      user = "ec2-user"
+      host = module.vm01[0].public_ip
+      private_key = file("~/Downloads/skv-key1.pem")
+    }
+
+    provisioner "file" {
+      source = "script.sh"
+      destination = "script.sh"
+    }
+
+    provisioner "remote-exec" {
+      inline = [ 
+        "chmod 777 script.sh",
+        "sudo script.sh"
+       ]
+    }
 }

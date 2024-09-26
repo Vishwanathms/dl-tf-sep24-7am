@@ -19,7 +19,7 @@ variable "subnet_id" {}
 variable "sg_ids" {
   type = list 
 }
-variable "key_name" {}
+variable "key-name" {}
 
 output "public_ip" {
   value = aws_instance.ec2.public_ip
