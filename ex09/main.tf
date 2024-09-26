@@ -35,9 +35,10 @@ resource "null_resource" "install_nginx" {
     }
     provisioner "remote-exec" {
       inline = [ 
-        "sudo yum install nginx",
+        "sudo yum install nginx  -y",
         "sudo systemctl start nginx",
-        "sudo systemctl enable nginx"
+        "sudo systemctl enable nginx",
+        "curl localhost"
        ]
   }
   depends_on = [ module.vm01 ]
