@@ -19,18 +19,26 @@ module "vm01" {
   instance_type = "t2.micro"
   #subnet_id = module.network-1.subnet_ids["sub1"]
   subnet_id = data.aws_subnet.subnet1.id
-
+  sg_ids = var.r_sg_ids
+  key-name = "skv-key1"
 }
 
-resource "null_resource" "fetch_pip" {
+resource "null_resource" "install_nginx" {
     #triggers = {
     #    always_run = "${timestamp()}"
     #}
-    provisioner "local-exec" {
-    command = "echo public ip of ec2: ${module.vm01[0].public_ip} : $publicip  > ${path.root}/ec2meta.txt"
-    interpreter = [  ]
-    environment = {
-      publicip = module.vm01[0].public_ip
+    connection {
+      type = "ssh"
+      user = "ec2-user"
+      host = module.vm01[0].public_ip
+      private_key = file("~/Downloads/skv-key1.pem")
     }
+    provisioner "remote-exec" {
+      inline = [ 
+        "sudo yum install nginx",
+        "sudo systemctl start nginx",
+        "sudo systemctl enable nginx"
+       ]
   }
+  depends_on = [ module.vm01 ]
 }
