@@ -16,7 +16,18 @@ count = "${var.a + var.b == 10 ? 2 : 1}"
 ## Fetching values from the existing resource on aws 
 
 * use "data resource"
-
-
-## Provisioners -- Local
+* example in the below has 2 filters
+```
+data "aws_subnet" "subnet1" {
+    vpc_id = ""
+  filter {
+    name   = "tag:Name"
+    values = ["Def-Sub4"]
+  }
+  filter {
+    name   = "tag:Owner"
+    values = ["VI"]
+  }
+}
+```
 
